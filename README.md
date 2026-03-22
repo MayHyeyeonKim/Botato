@@ -16,6 +16,14 @@
 botato/
 ├── backend/
 │   ├── src/
+│   │   ├── index.ts              # Hono server entry point
+│   │   ├── types.ts              # TypeScript type definitions
+│   │   ├── routes/
+│   │   │   └── chat.ts           # Chat API endpoints
+│   │   └── services/
+│   │       ├── langchain.ts      # LangChain integration
+│   │       ├── ollama.ts         # Ollama LLM setup
+│   │       └── modes.ts          # Chat modes & behaviors
 │   ├── package.json
 │   └── tsconfig.json
 ├── frontend/
