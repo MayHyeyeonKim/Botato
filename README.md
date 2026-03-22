@@ -5,21 +5,26 @@
 
 ## Stack
 
-- Python 3.10+
-- LangChain
-- Ollama (llama3.1)
+- Node.js + TypeScript
+- React (Frontend)
+- Hono (Backend Server)
+- LangChain + Ollama (llama3.1)
 
 ## Project Structure
 
 ```
 botato/
-├── CLAUDE.md
-├── README.md
-├── requirements.txt
-└── src/
-    └── chatbot.py
+├── backend/
+│   ├── src/
+│   ├── package.json
+│   └── tsconfig.json
+├── frontend/
+│   ├── src/
+│   ├── package.json
+│   └── vite.config.ts
+└── README.md
 ```
 
 ## Made by MaybePotato
 
-Learning project — LangChain + Ollama (2026)
+Learning project — Hono + React + LangChain + Ollama (2026)
