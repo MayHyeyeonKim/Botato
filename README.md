@@ -28,7 +28,22 @@ botato/
 │   └── tsconfig.json
 ├── frontend/
 │   ├── src/
+│   │   ├── main.tsx               # React entry point
+│   │   ├── App.tsx                # Main app component
+│   │   ├── App.css                # App styles
+│   │   ├── types.ts               # TypeScript interfaces
+│   │   ├── components/
+│   │   │   ├── Sidebar.tsx        # Mode & model selector
+│   │   │   ├── Sidebar.css
+│   │   │   ├── ChatBox.tsx        # Message display
+│   │   │   ├── ChatBox.css
+│   │   │   ├── ChatInput.tsx      # Input & send button
+│   │   │   └── ChatInput.css
+│   │   └── api/
+│   │       └── client.ts          # API calls & SSE streaming
+│   ├── index.html
 │   ├── package.json
+│   ├── tsconfig.json
 │   └── vite.config.ts
 └── README.md
 ```
