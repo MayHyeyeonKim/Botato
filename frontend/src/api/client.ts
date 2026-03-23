@@ -45,7 +45,7 @@ export async function sendMessage(
 
     for (const line of lines) {
       if (!line.startsWith("data: ")) continue;
-      const chunk = line.slice(6).trim();
+      const chunk = line.slice(6);
       if (chunk === "[DONE]") return;
       if (chunk.startsWith("[ERROR]")) throw new Error(chunk);
       if (chunk) {
