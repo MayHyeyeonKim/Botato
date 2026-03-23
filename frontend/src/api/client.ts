@@ -16,6 +16,29 @@ export async function fetchModes(): Promise<string[]> {
   return data.modes;
 }
 
+// Summarize conversation history into 2-3 sentences
+export async function summarizeHistory(
+  messages: Message[],
+  mode: string,
+  model: string
+): Promise<string> {
+  // Build conversation text
+  const conversationText = messages
+    .map((m) => `${m.role === "user" ? "User" : "Assistant"}: ${m.content}`)
+    .join("\n");
+
+  // Summarization prompt
+  const summaryPrompt = `Briefly summarize the following conversation in 2-3 sentences:\n\n${conversationText}`;
+
+  // Call sendMessage internally for summarization
+  let summary = "";
+  await sendMessage(summaryPrompt, mode, model, [], (chunk) => {
+    summary = chunk;
+  });
+
+  return summary;
+}
+
 export async function sendMessage(
   message: string,
   mode: string,

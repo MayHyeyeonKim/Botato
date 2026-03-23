@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Message } from "./types";
-import { fetchModels, fetchModes, sendMessage } from "./api/client";
+import { fetchModels, fetchModes, sendMessage, summarizeHistory } from "./api/client";
 import Sidebar from "./components/Sidebar";
 import ChatBox from "./components/ChatBox";
 import ChatInput from "./components/ChatInput";
@@ -85,7 +85,36 @@ export default function App() {
     try {
       let assistantResponse = "";
 
-      await sendMessage(userMessage, selectedMode, selectedModel, [...messages, userMsg], (chunk) => {
+      // Prepare chat history with summarization if needed
+      let chatHistoryToSend: Message[] = [...messages, userMsg];
+
+      if (messages.length >= 5) {
+        try {
+          // Summarize older messages, keep last 4 messages
+          const olderMessages = messages.slice(0, -4);
+          const recentMessages = messages.slice(-4);
+
+          const summary = await summarizeHistory(
+            olderMessages,
+            selectedMode,
+            selectedModel
+          );
+
+          chatHistoryToSend = [
+            {
+              role: "assistant",
+              content: `[Previous conversation summary: ${summary}]`,
+            },
+            ...recentMessages,
+            userMsg,
+          ];
+        } catch (summaryErr) {
+          // If summarization fails, use last 10 messages
+          chatHistoryToSend = [...messages.slice(-10), userMsg];
+        }
+      }
+
+      await sendMessage(userMessage, selectedMode, selectedModel, chatHistoryToSend, (chunk) => {
         assistantResponse = chunk;
         // Update message in real-time
         setMessages((prev) => {
